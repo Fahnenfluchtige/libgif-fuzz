@@ -42,3 +42,9 @@ Thumbs.db
 *.swp
 *.swo
 .env
+
+# Science
+*.pdf
+*.docx
+*.doc
+*.pptx
