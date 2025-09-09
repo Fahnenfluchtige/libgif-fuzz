@@ -1,0 +1,44 @@
+out*/
+out_full*/
+
+# Coverage artifacts
+coverage/
+**/*.gcov
+**/*.gcda
+**/*.gcno
+**/*.profraw
+**/*.profdata
+
+# Build outputs
+**/*.o
+**/*.a
+**/*.so
+**/*.dll
+**/*.dylib
+**/*.exe
+**/*.obj
+**/*.lib
+**/*.pdb
+
+# Fuzzing binaries and artifacts
+gif_fuzzer
+full_gif_fuzzer
+*.log
+out.log
+out2.log
+out.txt
+
+# Editors/IDE
+.vscode/
+.idea/
+*.code-workspace
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Misc
+*.tmp
+*.swp
+*.swo
+.env
