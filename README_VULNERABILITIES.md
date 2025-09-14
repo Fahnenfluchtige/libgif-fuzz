@@ -208,12 +208,45 @@ void GifFreeExtensions(int *ExtensionBlockCount, ExtensionBlock **ExtensionBlock
 
 ### 7. Memory Leaks в GifFreeSavedImages
 
-**Файл:** `libgif_repo/gifalloc.c:310-330`  
+**Файл:** `libgif_repo/gifalloc.c:430-452`  
 **Функция:** `GifFreeSavedImages`  
 **Тип:** Memory Leak
 
 #### Описание
 В функции `GifFreeSavedImages` происходит утечка памяти при освобождении сохраненных изображений. Некоторые поля структуры `SavedImage` не освобождаются корректно.
+
+#### Код с уязвимостью
+```c
+void GifFreeSavedImages(GifFileType *GifFile) {
+    SavedImage *sp;
+
+    if ((GifFile == NULL) || (GifFile->SavedImages == NULL)) {
+        return;
+    }
+    for (sp = GifFile->SavedImages;
+         sp < GifFile->SavedImages + GifFile->ImageCount; sp++) {
+        if (sp->ImageDesc.ColorMap != NULL) {
+            GifFreeMapObject(sp->ImageDesc.ColorMap);
+            sp->ImageDesc.ColorMap = NULL;
+        }
+
+        if (sp->RasterBits != NULL) {
+            free((char *)sp->RasterBits);
+        }
+
+        GifFreeExtensions(&sp->ExtensionBlockCount,
+                          &sp->ExtensionBlocks);
+    }
+    free((char *)GifFile->SavedImages);
+    GifFile->SavedImages = NULL;
+}
+```
+
+#### Причина
+Функция не освобождает все поля структуры `SavedImage`:
+- Отсутствует освобождение `sp->ImageDesc.ColorMap` в некоторых случаях
+- Не все поля `ExtensionBlock` освобождаются корректно
+- Возможны утечки при частичном освобождении памяти
 
 ## Примеры краш-кейсов
 
