@@ -219,23 +219,4 @@ void GifFreeExtensions(int *ExtensionBlockCount, ExtensionBlock **ExtensionBlock
 
 Краш-кейсы, вызывающие обнаруженные уязвимости, находятся в папке `crash_examples/`. Эти файлы были извлечены из результатов фаззинга AFL++ и организованы по типам уязвимостей.
 
-### Подтвержденные крэш-кейсы
 
-Все крэш-кейсы в папке `prooved_crashes/` были **автоматически проверены** и подтверждены как вызывающие реальные крэши в библиотеке giflib:
-
-- **Всего подтвержденных крэш-кейсов:** 651
-- **Процент успешности:** 100%
-- **Типы уязвимостей:** Heap Buffer Overflow, Null Pointer Dereference, Memory Leaks, Double-Free
-
-### Использование
-
-```bash
-# Тестирование одного крэш-кейса
-./libgif/full_gif_fuzzer < prooved_crashes/double_free_id_000124
-
-# Тестирование всех крэш-кейсов
-for file in prooved_crashes/*; do
-    echo "Тестирование: $file"
-    ./libgif/full_gif_fuzzer < "$file"
-done
-```
