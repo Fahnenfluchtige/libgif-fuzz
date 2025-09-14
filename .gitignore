@@ -50,4 +50,4 @@ Thumbs.db
 *.pptx
 
 #README_VULNERABILITIES.md
-crash_examples/
+#crash_examples/
