@@ -21,7 +21,7 @@ export AFL_HANG_TMOUT=1000+     # Таймаут для определения �
 export AFL_I_DONT_CARE_ABOUT_MISSING_CRASHES=1  # Игнорировать отсутствие крэшей при проверке
 export AFL_CRASH_EXITCODE=1     # Код выхода для крэшей
 
-export OUTPUT_DIR=$PWD/out_full
+export OUTPUT_DIR=$PWD/out_full_test
 export SOURCE="full_gif_fuzzer.c"
 export OBJECT="full_gif_fuzzer"
 
@@ -56,6 +56,7 @@ trap cleanup SIGINT SIGTERM
 function fuzz {
     echo "Запуск фаззинга с полным фаззером..."
     mkdir -p in
+    ls -la
     
     # Подготовка входных данных - копируем пример GIF файла, если есть
     if [ -d "../libgif_repo/pic" ]; then
@@ -69,12 +70,12 @@ function fuzz {
     fi
     
     # Запускаем основной фаззер с UI
-    AFL_AUTORESUME=1 afl-fuzz -i in -o $OUTPUT_DIR -x dict -M fuzzer01 ./$OBJECT 
+    AFL_AUTORESUME=1 AFL_ui=1 afl-fuzz -i in -o $OUTPUT_DIR -x dict -M fuzzer01 ./$OBJECT 
     # Запускаем дополнительные фаззеры без UI
-    for i in {2..3}; do
-        echo "Запуск фаззера $i..."
-        AFL_AUTORESUME=1 afl-fuzz -i in -o $OUTPUT_DIR -x dict -S fuzzer0$i ./$OBJECT > /dev/null 2>&1 &
-    done
+    #for i in {2..3}; do
+    #    echo "Запуск фаззера $i..."
+    #    AFL_AUTORESUME=1 afl-fuzz -i in -o $OUTPUT_DIR -x dict -S fuzzer0$i ./$OBJECT > /dev/null 2>&1 &
+    #done
     
     # Ждем завершения основного фаззера
     wait

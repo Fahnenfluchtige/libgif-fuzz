@@ -48,3 +48,6 @@ Thumbs.db
 *.docx
 *.doc
 *.pptx
+
+#README_VULNERABILITIES.md
+crash_examples/
