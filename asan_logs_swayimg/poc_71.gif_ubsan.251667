@@ -1,0 +1,60 @@
+=================================================================
+==251667==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x6020000032c8 at pc 0x55bf7e3fa557 bp 0x7ffdf7f60db0 sp 0x7ffdf7f60da8
+WRITE of size 4 at 0x6020000032c8 thread T0
+    #0 0x55bf7e3fa556 in decode_frame ../src/formats/gif.c:81
+    #1 0x55bf7e3fae30 in decode_gif ../src/formats/gif.c:134
+    #2 0x55bf7e3f75d8 in load_image ../src/formats/loader.c:105
+    #3 0x55bf7e3d354e in image_create ../src/image.c:132
+    #4 0x55bf7e3d3a03 in image_from_file ../src/image.c:173
+    #5 0x55bf7e3dacb5 in image_list_init ../src/imagelist.c:427
+    #6 0x55bf7e3df435 in main ../src/main.c:241
+    #7 0x7fef52845249 in __libc_start_call_main ../sysdeps/nptl/libc_start_call_main.h:58
+    #8 0x7fef52845304 in __libc_start_main_impl ../csu/libc-start.c:360
+    #9 0x55bf7e3c3f70 in _start (/home/evm/diplomiro/gimp_testing/swayimg-1.10/build/swayimg+0x5cf70)
+
+0x6020000032c8 is located 84 bytes to the right of 4-byte region [0x602000003270,0x602000003274)
+allocated by thread T0 here:
+    #0 0x7fef544b89cf in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:69
+    #1 0x55bf7e3d5772 in image_frame_allocate ../src/image.c:357
+    #2 0x55bf7e3f93ac in decode_frame ../src/formats/gif.c:52
+    #3 0x55bf7e3fae30 in decode_gif ../src/formats/gif.c:134
+    #4 0x55bf7e3f75d8 in load_image ../src/formats/loader.c:105
+    #5 0x55bf7e3d354e in image_create ../src/image.c:132
+    #6 0x55bf7e3d3a03 in image_from_file ../src/image.c:173
+    #7 0x55bf7e3dacb5 in image_list_init ../src/imagelist.c:427
+    #8 0x55bf7e3df435 in main ../src/main.c:241
+    #9 0x7fef52845249 in __libc_start_call_main ../sysdeps/nptl/libc_start_call_main.h:58
+
+SUMMARY: AddressSanitizer: heap-buffer-overflow ../src/formats/gif.c:81 in decode_frame
+Shadow bytes around the buggy address:
+  0x0c047fff8600: fa fa fd fd fa fa fd fd fa fa fd fd fa fa fd fd
+  0x0c047fff8610: fa fa fd fd fa fa fd fd fa fa fd fd fa fa fd fd
+  0x0c047fff8620: fa fa fd fd fa fa fd fd fa fa fd fd fa fa fd fd
+  0x0c047fff8630: fa fa fd fd fa fa 00 fa fa fa 00 fa fa fa 00 02
+  0x0c047fff8640: fa fa 06 fa fa fa 04 fa fa fa 01 fa fa fa 04 fa
+=>0x0c047fff8650: fa fa fa fa fa fa fa fa fa[fa]fa fa fa fa fa fa
+  0x0c047fff8660: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c047fff8670: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c047fff8680: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c047fff8690: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c047fff86a0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+==251667==ABORTING

@@ -1,0 +1,11 @@
+
+=================================================================
+==249586==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 256 byte(s) in 1 object(s) allocated from:
+    #0 0x7f69524b83b7 in __interceptor_calloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:77
+    #1 0x5628565c6fc5 in ui_create ../src/ui.c:544
+    #2 0x5628565bf660 in main ../src/main.c:255
+    #3 0x7f6950845249 in __libc_start_call_main ../sysdeps/nptl/libc_start_call_main.h:58
+
+SUMMARY: AddressSanitizer: 256 byte(s) leaked in 1 allocation(s).

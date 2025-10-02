@@ -1,0 +1,81 @@
+# Подтвержденные крэш-кейсы
+
+Эта папка содержит крэш-кейсы, которые были **подтверждены** как вызывающие реальные крэши в библиотеке giflib.
+
+## Статистика
+
+- **Всего подтвержденных крэш-кейсов:** 38
+- **Процент успешности:** 100%
+- **Дата создания:** $(date)
+
+## Типы уязвимостей
+
+### Double-Free (6 файлов)
+- `double_free_id_000124` - Double-free в GifFreeExtensions
+- `double_free_id_000133` - Memory leak в Extension Blocks
+- `double_free_id_000134` - Memory leak в Extension Blocks
+- `double_free_id_000137` - Double-free в GifFreeExtensions
+- `double_free_id_000138` - Memory leak в Extension Blocks
+- `double_free_id_000140` - Double-free в GifFreeExtensions
+
+### Heap Overflow (10 файлов)
+- `heap_overflow_id_000106` - Memory leak в Extension Blocks
+- `heap_overflow_id_000107` - Memory leak в Extension Blocks
+- `heap_overflow_id_000108` - Memory leak в Extension Blocks
+- `heap_overflow_id_000109` - Memory leak в Extension Blocks
+- `heap_overflow_id_000114` - Memory leak в Extension Blocks
+- `heap_overflow_id_000120` - Memory leak в Extension Blocks
+- `heap_overflow_id_000121` - Memory leak в Extension Blocks
+- `heap_overflow_id_000123` - Memory leak в Extension Blocks
+- `heap_overflow_id_000126` - Memory leak в Extension Blocks
+- `heap_overflow_id_000127` - Memory leak в Extension Blocks
+
+### Memory Leaks (17 файлов)
+- `memory_leak_id_000000` - Memory leak в Extension Blocks
+- `memory_leak_id_000001` - Memory leak в Extension Blocks
+- `memory_leak_id_000002` - Memory leak в Extension Blocks
+- `memory_leak_id_000003` - Memory leak в Extension Blocks
+- `memory_leak_id_000004` - Memory leak в Extension Blocks
+- `memory_leak_id_000005` - Double-free в GifFreeExtensions
+- `memory_leak_id_000006` - Memory leak в Extension Blocks
+- `memory_leak_id_000007` - Memory leak в Extension Blocks
+- `memory_leak_id_000008` - Memory leak в Extension Blocks
+- `memory_leak_id_000009` - Memory leak в Extension Blocks
+- `memory_leak_id_000010` - Memory leak в Extension Blocks
+- `memory_leak_id_000110` - Memory leak в Extension Blocks
+- `memory_leak_id_000116` - Memory leak в Extension Blocks
+- `memory_leak_id_000119` - Memory leak в Extension Blocks
+- `memory_leak_id_000125` - Memory leak в Extension Blocks
+- `memory_leak_id_000135` - Memory leak в Extension Blocks
+- `memory_leak_id_000139` - Memory leak в Extension Blocks
+
+### Null Pointer (5 файлов)
+- `null_pointer_id_000115` - Memory leak в Extension Blocks
+- `null_pointer_id_000118` - Memory leak в Extension Blocks
+- `null_pointer_id_000129` - Memory leak в Extension Blocks
+- `null_pointer_id_000130` - Memory leak в Extension Blocks
+- `null_pointer_id_000136` - Memory leak в Extension Blocks
+
+## Как использовать
+
+Все файлы в этой папке можно использовать для:
+
+1. **Тестирования исправлений** - запускать после применения патчей
+2. **Регрессионного тестирования** - проверять, что исправления работают
+3. **Демонстрации уязвимостей** - показывать реальные случаи крэшей
+
+### Пример запуска:
+```bash
+# Тестирование одного крэш-кейса
+./libgif/full_gif_fuzzer < prooved_crashes/double_free_id_000124
+
+# Тестирование всех крэш-кейсов
+for file in prooved_crashes/*; do
+    echo "Тестирование: $file"
+    ./libgif/full_gif_fuzzer < "$file"
+done
+```
+
+## Примечание
+
+Все крэш-кейсы в этой папке были **автоматически проверены** и подтверждены как вызывающие реальные крэши в библиотеке giflib с использованием AddressSanitizer и LeakSanitizer.

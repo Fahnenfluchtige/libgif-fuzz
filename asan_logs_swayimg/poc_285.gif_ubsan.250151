@@ -1,0 +1,18 @@
+=================================================================
+==250151==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000000 (pc 0x55734786a0ed bp 0x7ffe7ff11400 sp 0x7ffe7ff11320 T0)
+==250151==The signal is caused by a READ memory access.
+==250151==Hint: address points to the zero page.
+    #0 0x55734786a0ed in decode_frame ../src/formats/gif.c:79
+    #1 0x55734786ae30 in decode_gif ../src/formats/gif.c:134
+    #2 0x5573478675d8 in load_image ../src/formats/loader.c:105
+    #3 0x55734784354e in image_create ../src/image.c:132
+    #4 0x557347843a03 in image_from_file ../src/image.c:173
+    #5 0x55734784acb5 in image_list_init ../src/imagelist.c:427
+    #6 0x55734784f435 in main ../src/main.c:241
+    #7 0x7fcfea045249 in __libc_start_call_main ../sysdeps/nptl/libc_start_call_main.h:58
+    #8 0x7fcfea045304 in __libc_start_main_impl ../csu/libc-start.c:360
+    #9 0x557347833f70 in _start (/home/evm/diplomiro/gimp_testing/swayimg-1.10/build/swayimg+0x5cf70)
+
+AddressSanitizer can not provide additional info.
+SUMMARY: AddressSanitizer: SEGV ../src/formats/gif.c:79 in decode_frame
+==250151==ABORTING
